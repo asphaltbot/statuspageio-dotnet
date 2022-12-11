@@ -4,8 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Runtime.Serialization;
-using System.Security.Permissions;
-using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using StatusPageIo.Api.Attributes;
