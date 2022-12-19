@@ -96,7 +96,7 @@ namespace StatusPageIo.UnitTests
         {
             var existingComponents = await _statusPageIo.GetComponents(_pageId);
 
-            var randomName = Guid.NewGuid().ToString();
+            var randomName = $"UnitTest{Guid.NewGuid().ToString()}";
             var component = await _statusPageIo.CreateComponent(_pageId, randomName);
             Assert.That(component, Is.Not.Null);
             Assert.That(existingComponents.Count(component => component.Id.Equals(randomName)), Is.Zero);
@@ -104,6 +104,12 @@ namespace StatusPageIo.UnitTests
             var updatedComponents = await _statusPageIo.GetComponents(_pageId);
 
             Assert.That(updatedComponents.Count(component => component.Id.Equals(randomName)), Is.EqualTo(1));
+
+            await _statusPageIo.DeleteComponent(_pageId, component.Id);
+            
+            updatedComponents = await _statusPageIo.GetComponents(_pageId);
+
+            Assert.That(updatedComponents.Count(component => component.Id.Equals(randomName)), Is.Zero);
 
         }
 

@@ -41,7 +41,7 @@ namespace StatusPageIo.Api
             return await Get<IEnumerable<Component>>(string.Format("pages/{0}/components.json", pageId));
         }
 
-        public async Task<Component> CreateComponent(string pageId, string name, string status = "Operational", string description = null, string groupId = null, DateTime? startDate = null)
+        public async Task<Component> CreateComponent(string pageId, string name, string status = "operational", string description = null, string groupId = null, DateTime? startDate = null)
         {
             var componentParameters = new Dictionary<string, string>
             {
@@ -56,6 +56,11 @@ namespace StatusPageIo.Api
                 componentParameters.Add("component[start_date]", DateTime.UtcNow.ToShortDateString());
 
             return await Post<Component>(string.Format("pages/{0}/components.json", pageId), componentParameters);
+        }
+
+        public async Task<string> DeleteComponent(string pageId, string componentId)
+        {
+            return await Delete<string>(string.Format("pages/{0}/components/{1}.json", pageId, componentId));
         }
         public async Task<Component> UpdateComponent(string pageId, Component component)
         {
